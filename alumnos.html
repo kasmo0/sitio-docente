@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Alumnos · IES1SV-26EDS · Aldo Villanueva</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"><link rel="stylesheet" href="estilo.css"></head>
+<body class=""><header class="nav"><div class="wrap nav-in">
+ <a class="logo" href="index.html"><span class="logo-mark"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M17.5 3 6 18.5h8.2L13 29l13-16.5h-8.3z" fill="currentColor"/></svg></span><span><b>Aldo Villanueva</b><small>UTSJR · Energía y Desarrollo Sostenible</small></span></a>
+ <nav class="menu" aria-label="Secciones">
+  <a href="ies1sv.html" class="on"><i>1</i>IES1SV-26EDS</a>
+  <a href="material.html" ><i>2</i>Material Didáctico</a>
+  <a href="personal.html" ><i>3</i>Uso Personal</a>
+  <a href="anexos.html" ><i>4</i>Anexos</a>
+ </nav></div></header>
+<main><section class="ph wrap"><p class="eyebrow">Sección 1 · Acceso para alumnos</p><h1>Alumnos · IES1SV-26EDS</h1><p class="lead">Avisos, horario, calendario de parciales y criterios de evaluación. Introduce la contraseña que te dio tu tutor.</p></section>
+<section class="wrap">
+ <div class="gate" id="gate">
+  <div class="lockico"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2m-7-2a2 2 0 0 1 4 0v2h-4Z"/></svg></div>
+  <h2>Acceso protegido</h2>
+  <p>El contenido de esta página está cifrado. Escribe la contraseña para descifrarlo en tu navegador.</p>
+  <form id="gate-form" autocomplete="off">
+   <label for="pw">Contraseña</label>
+   <div class="row"><input id="pw" type="password" required autocomplete="current-password" autofocus><button class="btn pri" type="submit" id="pw-btn">Entrar</button></div>
+   <div class="err" id="err" role="alert"></div>
+  </form>
+  <p class="help">¿No tienes la contraseña? Solicítala al tutor del grupo. Nada de lo que escribas aquí se envía a ningún servidor.</p>
+ </div>
+ <div id="unlocked" hidden>
+  <div class="unlocked-bar"><span>Sesión abierta en <b>Alumnos · IES1SV-26EDS</b> · el contenido se descifró en este navegador.</span><button class="btn" type="button" id="logout">Cerrar sesión</button></div>
+  <div class="content" id="content"></div>
+ </div>
+</section>
+<script type="application/json" id="payload">{"salt":"pdqVgqEB0ijCrBjlYAZm+Q==","iv":"8gVv5FZ1xsHnEdWK","data":"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","iter":250000}</script>
+<script>
+(function(){
+ const SLUG="alumnos", KEY="acceso-"+SLUG;
+ const payload=JSON.parse(document.getElementById('payload').textContent);
+ const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+ async function decrypt(pw){
+  const enc=new TextEncoder();
+  const base=await crypto.subtle.importKey('raw',enc.encode(pw.normalize('NFKC')),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(payload.salt),iterations:payload.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(payload.iv)},key,b64(payload.data));
+  return new TextDecoder().decode(plain);
+ }
+ function show(html){
+  const c=document.getElementById('content');c.innerHTML=html;
+  // ejecutar scripts incluidos en el contenido (p. ej. notas rápidas)
+  c.querySelectorAll('script').forEach(s=>{const n=document.createElement('script');n.textContent=s.textContent;s.replaceWith(n)});
+  document.getElementById('gate').hidden=true;document.getElementById('unlocked').hidden=false;
+ }
+ async function tryPw(pw,silent){
+  const btn=document.getElementById('pw-btn'),err=document.getElementById('err');
+  btn.disabled=true;btn.textContent='Verificando…';err.textContent='';
+  try{const html=await decrypt(pw);try{sessionStorage.setItem(KEY,pw)}catch(e){}show(html)}
+  catch(e){if(!silent)err.textContent='Contraseña incorrecta. Revisa mayúsculas y minúsculas.';try{sessionStorage.removeItem(KEY)}catch(_){}}
+  btn.disabled=false;btn.textContent='Entrar';
+ }
+ if(!window.crypto||!crypto.subtle){document.getElementById('err').textContent='Este navegador no permite descifrar la página. Abre el sitio con https:// o usa un navegador actualizado.'}
+ document.getElementById('gate-form').addEventListener('submit',e=>{e.preventDefault();tryPw(document.getElementById('pw').value,false)});
+ document.getElementById('logout').addEventListener('click',()=>{try{sessionStorage.removeItem(KEY)}catch(e){}location.reload()});
+ let saved=null;try{saved=sessionStorage.getItem(KEY)}catch(e){}
+ if(saved)tryPw(saved,true);
+})();
+</script>
+</main>
+<footer class="foot"><div class="wrap foot-in"><div><b>Aldo Villanueva</b><br>Universidad Tecnológica de San Juan del Río<br>Ingeniería en Energía y Desarrollo Sostenible</div><div class="foot-links"><a href="index.html">Inicio</a><a href="ies1sv.html">IES1SV-26EDS</a><a href="material.html">Material Didáctico</a><a href="personal.html">Uso Personal</a><a href="anexos.html">Anexos</a></div><div class="foot-note">Cuatrimestre SD26 · Sitio del docente. Las secciones protegidas cifran su contenido; solo quien tiene la contraseña puede leerlo.</div></div></footer></body></html>
