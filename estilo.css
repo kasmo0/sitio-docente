@@ -151,3 +151,21 @@ code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);padding:
 @media (max-width:600px){.menu a{padding:7px 9px;font-size:13px}}
 @media (prefers-reduced-motion:reduce){.tile,.acc,.tile .arrow{transition:none}}
 @media print{.nav,.foot,.gate,.unlocked-bar{display:none}}
+
+/* Horario en vivo */
+.now-banner{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:14.5px;color:var(--ink-2)}
+.now-banner .now-dot{width:10px;height:10px;border-radius:50%;background:var(--ink-3);flex:none}
+.now-banner[data-state="on"]{border-color:var(--red);color:var(--ink)}
+.now-banner[data-state="on"] .now-dot{background:var(--red);box-shadow:0 0 0 4px var(--red-soft);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--red-soft)}50%{box-shadow:0 0 0 7px var(--red-soft)}}
+.sched.live thead th.today{color:var(--red)}
+.sched td em.live{display:none;font-style:normal;font-family:var(--disp);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:1px 6px;border-radius:999px;margin-top:5px}
+.sched td.now{background:var(--red-soft)!important;border-left-color:var(--red)!important;box-shadow:inset 0 0 0 1px var(--red)}
+.sched td.now em.live{display:inline-block}
+.sched tr.receso th{color:var(--ink-3)}
+.sched tr.receso td{height:auto;padding:6px 9px}
+.sched tr.receso td[data-h="receso"]{background:var(--surface-2);border-left:3px solid var(--ink-3);border-radius:6px;text-align:center}
+.sched tr.receso td[data-h="receso"] b{color:var(--ink-2)}
+.sched tr.receso td.sinreceso{text-align:center;color:var(--ink-3);font-size:11.5px;padding-top:12px}
+.sched-note{margin-top:10px}
+@media (prefers-reduced-motion:reduce){.now-banner[data-state="on"] .now-dot{animation:none}}
