@@ -1,6 +1,59 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>IES1SV-26EDS · Aldo Villanueva</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"><link rel="stylesheet" href="estilo.css"></head>
+<title>IES1SV-26EDS · Aldo Villanueva</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"><link rel="stylesheet" href="estilo.css?v=4"><style>:root{--green:#1F8A5B;--green-soft:#DFF3E8;--gray:#8A97AB;--gray-soft:#E9EDF3}/* Horario en vivo */
+.now-banner{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:14.5px;color:var(--ink-2)}
+.now-banner .now-dot{width:10px;height:10px;border-radius:50%;background:var(--ink-3);flex:none}
+.now-banner[data-state="on"]{border-color:var(--red);color:var(--ink)}
+.now-banner[data-state="on"] .now-dot{background:var(--red);box-shadow:0 0 0 4px var(--red-soft);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--red-soft)}50%{box-shadow:0 0 0 7px var(--red-soft)}}
+.sched.live thead th.today{color:var(--red)}
+.sched td em.live{display:none;font-style:normal;font-family:var(--disp);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);padding:1px 6px;border-radius:999px;margin-top:5px}
+.sched td.now{background:var(--red-soft)!important;border-left-color:var(--red)!important;box-shadow:inset 0 0 0 1px var(--red)}
+.sched td.now em.live{display:inline-block}
+.sched tr.receso th{color:var(--ink-3)}
+.sched tr.receso td{height:auto;padding:6px 9px}
+.sched tr.receso td[data-h="receso"]{background:var(--surface-2);border-left:3px solid var(--ink-3);border-radius:6px;text-align:center}
+.sched tr.receso td[data-h="receso"] b{color:var(--ink-2)}
+.sched tr.receso td.sinreceso{text-align:center;color:var(--ink-3);font-size:11.5px;padding-top:12px}
+.sched-note{margin-top:10px}
+@media (prefers-reduced-motion:reduce){.now-banner[data-state="on"] .now-dot{animation:none}}
+
+/* Calendario */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.cal-today{display:flex;align-items:baseline;gap:10px}
+.cal-today-l{font-family:var(--disp);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--red);padding:2px 8px;border-radius:999px}
+.cal-today b{font-family:var(--disp);font-size:17px;font-weight:600}
+.cal-nav{display:flex;gap:6px}.cal-nav .btn{padding:6px 12px}
+.cal-body{display:grid;grid-template-columns:1fr 1fr 300px;gap:18px;align-items:start}
+.cal-months{display:contents}
+.cal-mh{font-family:var(--disp);font-weight:600;font-size:15px;text-transform:capitalize;margin-bottom:8px;color:var(--ink)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dow{font-family:var(--disp);font-size:11px;font-weight:700;color:var(--ink-3);text-align:center;padding:2px 0 4px}
+.cal-d{position:relative;aspect-ratio:1;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:var(--disp);font-size:13.5px;font-variant-numeric:tabular-nums;color:var(--ink);background:var(--surface-2)}
+.cal-d.empty{background:transparent}
+.cal-d.wknd{color:var(--ink-3);background:transparent;border:1px dashed var(--line)}
+.cal-d.past{opacity:.55}
+.cal-d.has{background:var(--surface);border:1px solid var(--line-2,var(--line));cursor:help}
+.cal-d.has:hover,.cal-d.has:focus-visible{border-color:var(--blue);opacity:1}
+.cal-d .marks{display:flex;gap:3px;height:6px}
+.cal-d .marks i,.cal-legend i,.cal-list i{display:inline-block;width:6px;height:6px;border-radius:50%}
+.cal-d.today{background:var(--red-soft);color:var(--red);font-weight:700;box-shadow:inset 0 0 0 2px var(--red);opacity:1}
+.cal-d.today::after{content:"hoy";position:absolute;top:-7px;right:-4px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;padding:1px 5px;border-radius:999px}
+.c-eval{background:var(--red)}.c-tramite{background:var(--blue)}.c-asueto{background:var(--gray)}.c-inst{background:var(--green)}.c-hoy{background:var(--red-soft);box-shadow:inset 0 0 0 2px var(--red)}
+.cal-side{background:var(--ground);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.cal-side h3{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.cal-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.cal-list li{display:flex;flex-direction:column;gap:1px;padding-left:12px;border-left:2px solid var(--line)}
+.cal-list li.now{border-left-color:var(--red)}
+.cal-date{font-family:var(--disp);font-size:12.5px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.cal-t{font-size:14px;line-height:1.35}
+.cal-when{font-size:12px;color:var(--ink-3)}
+.cal-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:12.5px;color:var(--ink-2)}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px}
+.cal-legend i{width:10px;height:10px;border-radius:3px}
+@media (max-width:900px){.cal-body{grid-template-columns:1fr}.cal-months{display:grid;gap:18px}}
+</style></head>
 <body class=""><header class="nav"><div class="wrap nav-in">
  <a class="logo" href="index.html"><span class="logo-mark"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M17.5 3 6 18.5h8.2L13 29l13-16.5h-8.3z" fill="currentColor"/></svg></span><span><b>Aldo Villanueva</b><small>UTSJR · Energía y Desarrollo Sostenible</small></span></a>
  <nav class="menu" aria-label="Secciones">
@@ -16,7 +69,6 @@
  <a class="acc" href="alumnos.html"><span class="acc-ico"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M2 9l10-4 10 4-10 4zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v6"/></svg></span><b>Alumnos</b><small>Horario, calendario de parciales, avisos y criterios de evaluación</small><span class="pill">Con contraseña</span></a>
  <a class="acc admin" href="personal.html"><span class="acc-ico"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM5 20a7 7 0 0 1 14 0M16 3.5l3 3M14 8l6-6"/></svg></span><b>Tutor / Administración</b><small>Bitácora de seguimiento del grupo y escritorio personal</small><span class="pill">Con contraseña</span></a>
 </section>
-<section class="wrap"><h2>Asignaturas y profesores</h2><div class="tw"><table class="tbl"><thead><tr><th>Asignatura</th><th>Profesor(a)</th><th class="n">h/sem</th><th>Sesiones</th></tr></thead><tbody><tr><td><b>Sistemas de Adquisición de Datos</b></td><td>Aldo Pérez</td><td class="n">5</td><td class="mono">Lu 16–18 · Ju 16–18 · Vi 16–17</td></tr><tr><td><b>Temas Selectos de Física</b></td><td>Sergio Rodríguez</td><td class="n">6</td><td class="mono">Lu 18–20 · Ma 18–19 · Ju 18–19 · Vi 17–19</td></tr><tr><td><b>Electroquímica</b></td><td>Cassandra Romero</td><td class="n">5</td><td class="mono">Lu 20–22 · Ma 16–18 · Ju 20–21</td></tr><tr><td><b>Ahorro y Uso Eficiente de la Energía (Opt. 1)</b></td><td>Ángel Marroquín</td><td class="n">6</td><td class="mono">Ma 19–21 · Mi 20–22 · Ju 19–20 · Vi 19–20</td></tr><tr><td><b>Habilidades Gerenciales</b></td><td>Nancy Maritza</td><td class="n">4</td><td class="mono">Ma 21–22 · Mi 18–20 · Vi 20–21</td></tr><tr><td><b>Tutoría individual y grupal</b></td><td>Aldo Pérez</td><td class="n">2</td><td class="mono">Mi 16–18</td></tr></tbody></table></div></section>
 <section class="wrap" id="horario"><h2>Horario semanal</h2><p class="muted">Fuente: horario oficial del grupo (aSc Horarios, versión del 23 de julio de 2026).</p><div class="now-banner" id="hor-ies-now"><span class="now-dot"></span><span class="now-txt">Consultando la hora…</span></div>
 <div class="sched-wrap"><table class="sched live" id="hor-ies"><thead><tr><th>Hora</th><th data-d="Lu">Lunes</th><th data-d="Ma">Martes</th><th data-d="Mi">Miércoles</th><th data-d="Ju">Jueves</th><th data-d="Vi">Viernes</th></tr></thead><tbody><tr><th>16:00–17:00</th><td data-d="Lu" data-h="16"><b>Sistemas de Adquisición de Datos</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Ma" data-h="16"><b>Electroquímica</b><span>Cassandra Romero</span><em class="live">En curso</em></td><td data-d="Mi" data-h="16"><b>Tutoría individual y grupal</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Ju" data-h="16"><b>Sistemas de Adquisición de Datos</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Vi" data-h="16"><b>Sistemas de Adquisición de Datos</b><span>Aldo Pérez</span><em class="live">En curso</em></td></tr><tr><th>17:00–18:00</th><td data-d="Lu" data-h="17"><b>Sistemas de Adquisición de Datos</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Ma" data-h="17"><b>Electroquímica</b><span>Cassandra Romero</span><em class="live">En curso</em></td><td data-d="Mi" data-h="17"><b>Tutoría individual y grupal</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Ju" data-h="17"><b>Sistemas de Adquisición de Datos</b><span>Aldo Pérez</span><em class="live">En curso</em></td><td data-d="Vi" data-h="17"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td></tr><tr class="receso"><th>17:45–18:15</th><td colspan="4" data-d="LuMaMiJu" data-h="receso"><b>Receso</b><span>Lunes a jueves · 30 min</span><em class="live">En curso</em></td><td class="free sinreceso"><span>Sin receso</span></td></tr><tr><th>18:00–19:00</th><td data-d="Lu" data-h="18"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td><td data-d="Ma" data-h="18"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td><td data-d="Mi" data-h="18"><b>Habilidades Gerenciales</b><span>Nancy Maritza</span><em class="live">En curso</em></td><td data-d="Ju" data-h="18"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td><td data-d="Vi" data-h="18"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td></tr><tr><th>19:00–20:00</th><td data-d="Lu" data-h="19"><b>Temas Selectos de Física</b><span>Sergio Rodríguez</span><em class="live">En curso</em></td><td data-d="Ma" data-h="19"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td><td data-d="Mi" data-h="19"><b>Habilidades Gerenciales</b><span>Nancy Maritza</span><em class="live">En curso</em></td><td data-d="Ju" data-h="19"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td><td data-d="Vi" data-h="19"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td></tr><tr><th>20:00–21:00</th><td data-d="Lu" data-h="20"><b>Electroquímica</b><span>Cassandra Romero</span><em class="live">En curso</em></td><td data-d="Ma" data-h="20"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td><td data-d="Mi" data-h="20"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td><td data-d="Ju" data-h="20"><b>Electroquímica</b><span>Cassandra Romero</span><em class="live">En curso</em></td><td data-d="Vi" data-h="20"><b>Habilidades Gerenciales</b><span>Nancy Maritza</span><em class="live">En curso</em></td></tr><tr><th>21:00–22:00</th><td data-d="Lu" data-h="21"><b>Electroquímica</b><span>Cassandra Romero</span><em class="live">En curso</em></td><td data-d="Ma" data-h="21"><b>Habilidades Gerenciales</b><span>Nancy Maritza</span><em class="live">En curso</em></td><td data-d="Mi" data-h="21"><b>Ahorro y Uso Eficiente de la Energía</b><span>Ángel Marroquín</span><em class="live">En curso</em></td><td class="free" data-d="Ju" data-h="21"></td><td class="free" data-d="Vi" data-h="21"></td></tr></tbody></table></div>
 <p class="muted sched-note">De lunes a jueves el receso es de 17:45 a 18:15; los viernes no hay receso. La asignatura en curso se resalta según la hora del centro de México y se actualiza sola.</p>
@@ -46,5 +98,56 @@
   else txt='Fin de semana · sin clases';
   B.querySelector('.now-txt').textContent=txt;B.dataset.state=state}
  tick();setInterval(tick,30000);
+})();</script></section>
+<section class="wrap"><h2>Asignaturas y profesores</h2><div class="tw"><table class="tbl"><thead><tr><th>Asignatura</th><th>Profesor(a)</th><th class="n">h/sem</th><th>Sesiones</th></tr></thead><tbody><tr><td><b>Sistemas de Adquisición de Datos</b></td><td>Aldo Pérez</td><td class="n">5</td><td class="mono">Lu 16–18 · Ju 16–18 · Vi 16–17</td></tr><tr><td><b>Temas Selectos de Física</b></td><td>Sergio Rodríguez</td><td class="n">6</td><td class="mono">Lu 18–20 · Ma 18–19 · Ju 18–19 · Vi 17–19</td></tr><tr><td><b>Electroquímica</b></td><td>Cassandra Romero</td><td class="n">5</td><td class="mono">Lu 20–22 · Ma 16–18 · Ju 20–21</td></tr><tr><td><b>Ahorro y Uso Eficiente de la Energía (Opt. 1)</b></td><td>Ángel Marroquín</td><td class="n">6</td><td class="mono">Ma 19–21 · Mi 20–22 · Ju 19–20 · Vi 19–20</td></tr><tr><td><b>Habilidades Gerenciales</b></td><td>Nancy Maritza</td><td class="n">4</td><td class="mono">Ma 21–22 · Mi 18–20 · Vi 20–21</td></tr><tr><td><b>Tutoría individual y grupal</b></td><td>Aldo Pérez</td><td class="n">2</td><td class="mono">Mi 16–18</td></tr></tbody></table></div></section>
+<section class="wrap" id="calendario"><h2>Calendario del cuatrimestre</h2><p class="muted">Fechas importantes del periodo SD26 según el calendario oficial; el día de hoy aparece resaltado.</p>
+<div class="cal" id="cal-ies">
+ <div class="cal-head">
+  <div class="cal-today" id="cal-ies-today"><span class="cal-today-l">Hoy</span><b id="cal-ies-today-d">—</b></div>
+  <div class="cal-nav"><button type="button" class="btn" id="cal-ies-prev" aria-label="Meses anteriores">‹</button><button type="button" class="btn" id="cal-ies-home">Hoy</button><button type="button" class="btn" id="cal-ies-next" aria-label="Meses siguientes">›</button></div>
+ </div>
+ <div class="cal-body">
+  <div class="cal-months" id="cal-ies-months"></div>
+  <aside class="cal-side"><h3>Próximas fechas</h3><ol class="cal-list" id="cal-ies-list"></ol></aside>
+ </div>
+ <div class="cal-legend"><span><i class="c-eval"></i>Parciales y evaluaciones</span><span><i class="c-tramite"></i>Entregas y trámites</span><span><i class="c-asueto"></i>Asuetos y suspensiones</span><span><i class="c-inst"></i>Institucional</span><span><i class="c-hoy"></i>Hoy</span></div>
+ <p class="muted sched-note">Fuente: Calendario Licenciatura e Ingeniería 2026-2027 de la UTSJR. Las fechas de exámenes de cada asignatura las fija su profesor dentro del periodo de captura correspondiente.</p>
+</div>
+<script>(function(){
+ const EV=[{"s":"2026-09-01","t":"Inicio del cuatrimestre SD26","c":"inst"},{"s":"2026-09-01","e":"2026-09-04","t":"Captura de evaluaciones · acciones especiales de regularización","c":"eval"},{"s":"2026-09-07","e":"2026-09-08","t":"Captura de evaluaciones · acciones especiales de regularización","c":"eval"},{"s":"2026-09-08","t":"Entrega de actas a Servicios Escolares","c":"inst"},{"s":"2026-09-09","e":"2026-09-11","t":"Captura de evaluaciones · acciones de última asignatura","c":"eval"},{"s":"2026-09-14","e":"2026-09-15","t":"Captura de evaluaciones · acciones de última asignatura","c":"eval"},{"s":"2026-09-16","t":"Suspensión de labores · Independencia de México","c":"asueto"},{"s":"2026-09-17","t":"Entrega de actas a Servicios Escolares","c":"inst"},{"s":"2026-09-28","e":"2026-10-02","t":"Captura de evaluaciones del 1er parcial","c":"eval"},{"s":"2026-10-01","t":"Límite para retroalimentación de calificaciones a estudiantes (1er parcial)","c":"tramite"},{"s":"2026-11-01","e":"2026-11-02","t":"Suspensión de labores por convenio · Día de Muertos","c":"asueto"},{"s":"2026-11-03","e":"2026-11-05","t":"Captura de evaluaciones del 2do parcial","c":"eval"},{"s":"2026-11-06","t":"Límite para retroalimentación de calificaciones a estudiantes (2do parcial)","c":"tramite"},{"s":"2026-11-09","t":"Captura de evaluaciones del 2do parcial","c":"eval"},{"s":"2026-11-16","t":"Suspensión de labores · Revolución Mexicana","c":"asueto"},{"s":"2026-11-23","e":"2026-11-26","t":"Evaluación de egreso Ingeniería / Licenciatura","c":"inst"},{"s":"2026-11-26","t":"Fecha límite para solicitar baja del cuatrimestre","c":"tramite"},{"s":"2026-12-04","t":"Captura de evaluaciones del 3er parcial","c":"eval"},{"s":"2026-12-07","e":"2026-12-10","t":"Captura de evaluaciones del 3er parcial","c":"eval"},{"s":"2026-12-11","t":"Término del cuatrimestre SD26 · entrega de actas","c":"inst"},{"s":"2026-12-12","t":"Suspensión de labores por convenio","c":"asueto"},{"s":"2026-12-14","e":"2026-12-17","t":"Captura de evaluaciones · acciones complementarias","c":"eval"},{"s":"2026-12-14","e":"2026-12-15","t":"Reuniones de academia de asignatura (cierre y planeación)","c":"inst"},{"s":"2026-12-18","t":"Entrega de actas a Servicios Escolares","c":"inst"},{"s":"2026-12-21","e":"2027-01-05","t":"Vacaciones de invierno","c":"asueto"},{"s":"2027-01-04","e":"2027-01-08","t":"Reinscripción de estudiantes regulares","c":"tramite"},{"s":"2027-01-06","t":"Inicio del siguiente cuatrimestre","c":"inst"},{"s":"2027-01-11","t":"Reinscripción de estudiantes regularizados","c":"tramite"},{"s":"2027-01-13","t":"Entrega de actas a Servicios Escolares","c":"inst"}];
+ const R=document.getElementById('cal-ies');if(!R)return;
+ const MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],DS=['D','L','M','M','J','V','S'],DL=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+ const CN={eval:'Evaluación',tramite:'Trámite',asueto:'Asueto',inst:'Institucional'};
+ const pad=n=>String(n).padStart(2,'0');const iso=(y,m,d)=>y+'-'+pad(m+1)+'-'+pad(d);
+ function todayMX(){const q=new URLSearchParams(location.search).get('fecha');if(q&&/^\d{4}-\d{2}-\d{2}$/.test(q))return q;
+  const p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());return p}
+ const TODAY=todayMX();const [ty,tm,td]=TODAY.split('-').map(Number);
+ const toDate=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(Date.UTC(y,m-1,d))};
+ const days=(a,b)=>Math.round((toDate(b)-toDate(a))/86400000);
+ EV.forEach(e=>{e.e=e.e||e.s});
+ const evOn=d=>EV.filter(e=>e.s<=d&&d<=e.e);
+ let vy=ty,vm=tm-1; // mes visible (0-11)
+ function fmtRange(e){const a=toDate(e.s),b=toDate(e.e);const f=(x,withM)=>x.getUTCDate()+(withM?' de '+MES[x.getUTCMonth()]:'');
+  if(e.s===e.e)return f(a,true);if(a.getUTCMonth()===b.getUTCMonth())return f(a,false)+'–'+f(b,true);return f(a,true)+' – '+f(b,true)}
+ function month(y,m){const first=new Date(Date.UTC(y,m,1)).getUTCDay(),n=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+  let h='<div class="cal-m"><div class="cal-mh">'+MES[m]+' '+y+'</div><div class="cal-grid">'+DS.map(d=>'<div class="cal-dow">'+d+'</div>').join('');
+  for(let i=0;i<first;i++)h+='<div class="cal-d empty"></div>';
+  for(let d=1;d<=n;d++){const k=iso(y,m,d),ev=evOn(k),dow=(first+d-1)%7;const cls=['cal-d'];if(k===TODAY)cls.push('today');if(dow===0||dow===6)cls.push('wknd');if(k<TODAY)cls.push('past');
+   const cats=[...new Set(ev.map(e=>e.c))];if(cats.length)cls.push('has');
+   h+='<div class="'+cls.join(' ')+'" '+(ev.length?'title="'+ev.map(e=>e.t).join(' · ').replace(/"/g,'&quot;')+'" tabindex="0"':'')+'><span class="n">'+d+'</span><span class="marks">'+cats.map(c=>'<i class="c-'+c+'"></i>').join('')+'</span></div>'}
+  return h+'</div></div>'}
+ function render(){
+  const dl=DL[toDate(TODAY).getUTCDay()];document.getElementById('cal-ies-today-d').textContent=dl[0].toUpperCase()+dl.slice(1)+' '+td+' de '+MES[tm-1]+' de '+ty;
+  let y2=vy,m2=vm+1;if(m2>11){m2=0;y2++}
+  document.getElementById('cal-ies-months').innerHTML=month(vy,vm)+month(y2,m2);
+  const up=EV.filter(e=>e.e>=TODAY).sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:0).slice(0,8);
+  document.getElementById('cal-ies-list').innerHTML=up.map(e=>{let when;const d=days(TODAY,e.s);
+   if(e.s<=TODAY)when='En curso · termina '+(e.e===TODAY?'hoy':'el '+toDate(e.e).getUTCDate()+' de '+MES[toDate(e.e).getUTCMonth()]);else if(d===1)when='Mañana';else when='En '+d+' días';
+   return '<li class="'+(e.s<=TODAY?'now':'')+'"><span class="cal-date"><i class="c-'+e.c+'"></i>'+fmtRange(e)+'</span><span class="cal-t">'+e.t+'</span><span class="cal-when">'+when+' · '+CN[e.c]+'</span></li>'}).join('')||'<li><span class="cal-t">No hay más fechas registradas.</span></li>';
+ }
+ document.getElementById('cal-ies-prev').onclick=()=>{vm--;if(vm<0){vm=11;vy--}render()};
+ document.getElementById('cal-ies-next').onclick=()=>{vm++;if(vm>11){vm=0;vy++}render()};
+ document.getElementById('cal-ies-home').onclick=()=>{vy=ty;vm=tm-1;render()};
+ render();
 })();</script></section></main>
 <footer class="foot"><div class="wrap foot-in"><div><b>Aldo Villanueva</b><br>Universidad Tecnológica de San Juan del Río<br>Ingeniería en Energía y Desarrollo Sostenible</div><div class="foot-links"><a href="index.html">Inicio</a><a href="ies1sv.html">IES1SV-26EDS</a><a href="material.html">Material Didáctico</a><a href="personal.html">Uso Personal</a><a href="anexos.html">Anexos</a></div><div class="foot-note">Cuatrimestre SD26 · Sitio del docente. Las secciones protegidas cifran su contenido; solo quien tiene la contraseña puede leerlo.</div></div></footer></body></html>
